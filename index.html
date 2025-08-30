@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gabriel Fuentes Castillo | Ciberseguridad & DevSecOps</title>
+    <meta name="description"
+        content="Portafolio de Gabriel Fuentes Castillo — Auditorías Web, Pentesting, DevSecOps. Proyectos, hallazgos y contacto." />
+    <meta property="og:title" content="Gabriel Fuentes Castillo | Ciberseguridad & DevSecOps">
+    <meta property="og:description"
+        content="Portafolio de auditorías, pentesting y despliegues seguros en .NET, Docker, Nginx y PostgreSQL.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gafudev.github.io/">
+    <meta name="theme-color" content="#0ff">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05060a;
+            --card: #0b0f1a;
+            --muted: #9aa4b2;
+            --txt: #e6f1ff;
+            --acc: #00f5ff;
+            /* cian futurista */
+            --acc2: #b26dff;
+            /* violeta neón    */
+            --ok: #20c997;
+            --warn: #ffd166;
+            --err: #ff6b6b;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 40px rgba(0, 245, 255, .06);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            background: radial-gradient(1200px 600px at 80% -10%, rgba(178, 109, 255, .15), transparent 40%),
+                radial-gradient(900px 500px at 10% 10%, rgba(0, 245, 255, .12), transparent 40%),
+                var(--bg);
+            color: var(--txt);
+            font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif
+        }
+
+        a {
+            color: var(--acc);
+            text-decoration: none
+        }
+
+        a:focus,
+        button:focus,
+        .chip:focus {
+            outline: 2px solid var(--acc2);
+            outline-offset: 2px
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(8px);
+            background: rgba(5, 6, 10, .6);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            z-index: 5
+        }
+
+        .wrap {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 18px
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: Orbitron, Inter, sans-serif;
+            letter-spacing: .5px
+        }
+
+        .brand .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--acc), var(--acc2));
+            box-shadow: 0 0 20px rgba(0, 245, 255, .25)
+        }
+
+        .menu {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        .menu a {
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .hero {
+            position: relative;
+            padding: 58px 0 28px
+        }
+
+        .grid-hero {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 28px;
+            align-items: center
+        }
+
+        @media (max-width:960px) {
+            .grid-hero {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .badge {
+            font-size: 12px;
+            letter-spacing: .4px;
+            color: var(--muted);
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 999px;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        h1 {
+            font-family: Orbitron, Inter, sans-serif;
+            font-size: 42px;
+            line-height: 1.15;
+            margin: 12px 0 8px
+        }
+
+        .lead {
+            color: #cfe3ff;
+            max-width: 60ch
+        }
+
+        .cta {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: linear-gradient(135deg, rgba(0, 245, 255, .18), rgba(178, 109, 255, .15));
+            color: var(--txt);
+            box-shadow: var(--shadow);
+            cursor: pointer
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow)
+        }
+
+        .hero-card {
+            padding: 18px
+        }
+
+        .code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+            background: #0a0e18;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 10px;
+            color: #d6e2ff
+        }
+
+        .section {
+            padding: 34px 0 18px
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 0 12px
+        }
+
+        .title h2 {
+            font-family: Orbitron, Inter, sans-serif;
+            margin: 0;
+            font-size: 26px
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .chip {
+            border: 1px dashed rgba(0, 245, 255, .35);
+            color: #b7f8ff;
+            background: rgba(0, 245, 255, .08);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px
+        }
+
+        @media (max-width:1000px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width:700px) {
+            .cards {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            padding: 16px
+        }
+
+        .card h3 {
+            margin: 0 0 6px;
+            font-size: 18px
+        }
+
+        .meta {
+            display: flex;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px
+        }
+
+        .list {
+            display: grid;
+            gap: 10px
+        }
+
+        .list .row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 8px
+        }
+
+        .list .row b {
+            color: #b9d1ff
+        }
+
+        footer {
+            padding: 22px 0 40px;
+            color: var(--muted)
+        }
+
+        /* modo técnico */
+        .mode-note {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .only-tech {
+            display: none
+        }
+
+        body.tech .only-tech {
+            display: block
+        }
+
+        /* matrix rain canvas */
+        #matrix {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: .15
+        }
+
+        /* focus visible polyfill feel */
+        :focus-visible {
+            outline: 2px solid var(--acc)
+        }
+    </style>
+    <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Gabriel Fuentes Castillo",
+    "jobTitle":"Auditoría Web & DevSecOps",
+    "url":"https://gafudev.github.io/",
+    "sameAs":[
+      "https://github.com/GafuDev/",
+      "https://www.linkedin.com/in/gabriel-fuentes-castillo-90a21725b/"
+    ],
+    "address":{"@type":"PostalAddress","addressLocality":"Santiago","addressCountry":"CL"}
+  }
+  </script>
+</head>
+
+<body>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <a href="#contenido" class="badge" style="position:absolute;left:12px;top:-999px">Saltar al contenido</a>
+
+    <header>
+        <div class="wrap nav">
+            <div class="brand" aria-label="Gabriel Fuentes">
+                <div class="logo" aria-hidden="true"></div>
+                <strong>GF | Ciberseguridad</strong>
+            </div>
+            <nav class="menu" aria-label="principal">
+                <a href="#sobre-mi">Sobre mí</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#hallazgo">Hallazgo</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <div class="switch">
+                <label for="toggleTech">Modo técnico</label>
+                <input id="toggleTech" type="checkbox" aria-label="Activar modo técnico">
+            </div>
+        </div>
+    </header>
+
+    <main id="contenido" class="wrap">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="grid-hero">
+                <div>
+                    <span class="badge">Disponibilidad: proyectos de auditoría web & hardening</span>
+                    <h1>Gabriel Fuentes Castillo</h1>
+                    <p class="lead">
+                        Auditorías y <b>Pentesting Web</b>, <b>DevSecOps</b> y despliegues seguros con Docker + Nginx +
+                        PostgreSQL + .NET.
+                        Fokus: controles OWASP, autenticación/sesión y mitigación accionable.
+                    </p>
+                    <div class="cta">
+                        <a class="btn" href="#proyectos">Ver proyectos</a>
+                        <a class="btn secondary"
+                            href="mailto:gpa.fuentesc@gmail.com?subject=Reuni%C3%B3n%20Portafolio%20Ciberseguridad&body=Hola%20Gabriel%2C%20me%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n."
+                            rel="noopener">Agendar reunión</a>
+                        <a class="btn secondary" href="https://github.com/GafuDev" target="_blank"
+                            rel="noopener">GitHub</a>
+                        <a class="btn secondary" href="https://www.linkedin.com/in/gabriel-fuentes-castillo-90a21725b/"
+                            target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                    <p class="mode-note">Consejo: activa “Modo técnico” para ver detalles de stack, payloads y métricas.
+                    </p>
+                </div>
+                <div class="panel hero-card">
+                    <div class="list">
+                        <div class="row"><b>Ubicación</b><span>Santiago, Chile</span></div>
+                        <div class="row"><b>Rol</b><span>Auditoría Web & DevSecOps</span></div>
+                        <div class="row"><b>Stack reciente</b><span>.NET 8, Docker, Nginx, PostgreSQL, GitHub Actions,
+                                Burp Suite</span></div>
+                        <div class="row"><b>Intereses</b><span>OWASP ASVS, Zero Trust, hardening y respuesta a
+                                incidentes</span></div>
+                        <div class="row only-tech"><b>Perfil GitHub</b><span>“Junior Full Stack Developer… Angular y
+                                Node.js”</span></div>
+                    </div>
+                    <div class="only-tech" style="margin-top:12px">
+                        <div class="code">
+                            # controles base<br />
+                            - HSTS + TLS 1.2+<br />
+                            - Rate-limit + CAPTCHA en /login<br />
+                            - MFA opcional y rotación de credenciales<br />
+                            - Backups + alertas de fuerza bruta
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE MI -->
+        <section id="sobre-mi" class="section">
+            <div class="title">
+                <h2>Sobre mí</h2>
+            </div>
+            <div class="panel card">
+                <p>
+                    Soy <b>Gabriel Fuentes Castillo</b>, profesional TI enfocado en <b>ciberseguridad de aplicaciones
+                        web</b> y <b>DevSecOps</b>, orientado a resultados medibles con evidencias técnicas. Realizo
+                    auditorías y pruebas de seguridad en aplicaciones y APIs, hardening de infraestructura
+                    (<i>Linux/Nginx/Docker</i>), revisión de autenticación/sesión y soporte a equipos de desarrollo para
+                    remediar hallazgos siguiendo <b>OWASP ASVS / NIST / CIS</b>.
+                </p>
+                <p>
+                    Experiencia destacada: despliegue y hardening de app ASP.NET Core con Docker + Nginx + PostgreSQL en
+                    Azure, con TLS/HSTS, backups y monitoreo; evaluación de endpoints críticos (p. ej.,
+                    <code>/login</code>) y plan de remediación con el equipo de desarrollo.
+                </p>
+            </div>
+        </section>
+
+        <!-- HABILIDADES -->
+        <section id="habilidades" class="section">
+            <div class="title">
+                <h2>Habilidades</h2>
+            </div>
+            <div class="chips">
+                <span class="chip">Pentesting Web (Burp Suite, Intruder)</span>
+                <span class="chip">OWASP Top 10 / ASVS</span>
+                <span class="chip">DevSecOps</span>
+                <span class="chip">.NET 8 / C#</span>
+                <span class="chip">Node.js / Express</span>
+                <span class="chip">Angular</span>
+                <span class="chip">Docker & Compose</span>
+                <span class="chip">Nginx</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">Nmap</span>
+                <span class="chip">GitHub Actions</span>
+                <span class="chip only-tech">CSP / HSTS / mTLS</span>
+                <span class="chip only-tech">Threat Modeling</span>
+            </div>
+        </section>
+
+        <!-- PROYECTOS (API GitHub) -->
+        <section id="proyectos" class="section">
+            <div class="title">
+                <h2>Proyectos & Labs</h2>
+                <span class="mode-note">Se listan automáticamente desde GitHub (los más recientes).</span>
+            </div>
+            <div id="repos" class="cards" role="list"></div>
+            <noscript>
+                <div class="panel card">
+                    <h3><a href="https://github.com/GafuDev/CursoHackingEticoEnAplicativosWeb2025" target="_blank"
+                            rel="noopener">Curso Hacking Ético en Aplicativos Web 2025</a></h3>
+                    <p>Laboratorio del curso de Hacking Ético en Aplicativos Web (fork).</p>
+                    <div class="meta"><span>Python</span><span>GitHub</span></div>
+                </div>
+            </noscript>
+        </section>
+
+        <!-- HALLAZGO DESTACADO -->
+        <section id="hallazgo" class="section">
+            <div class="title">
+                <h2>Hallazgo destacado: fuerza bruta en /login</h2>
+            </div>
+            <div class="panel card">
+                <p><b>Resumen:</b> El endpoint <code>/login</code> permite intentos ilimitados sin bloqueo ni
+                    anti-automatización; respuestas 200 incluso con credenciales inválidas. Esto habilita fuerza bruta y
+                    compromiso de cuentas.</p>
+                <div class="only-tech">
+                    <div class="code" aria-label="Evidencia técnica (payloads)">
+                        # Evidencia técnica (Burp Intruder + script)<br />
+                        - Intentos consecutivos sin bloqueo IP/usuario<br />
+                        - Respuesta 200 OK a fallos<br />
+                        # Recomendaciones<br />
+                        1) Rate-limit + bloqueo temporal tras 5 fallos<br />
+                        2) CAPTCHA adaptativo<br />
+                        3) 401/403 en fallos, mensajes genéricos<br />
+                        4) Alertas por patrón de fuerza bruta<br />
+                        5) MFA opcional + política robusta de contraseñas
+                    </div>
+                </div>
+                <p class="mode-note">Este extracto muestra el estilo de mis informes técnicos y la orientación a
+                    remediación.</p>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="section">
+            <div class="title">
+                <h2>Contacto</h2>
+            </div>
+            <div class="panel card">
+                <div class="list">
+                    <div class="row"><b>Email</b> <a href="mailto:gpa.fuentesc@gmail.com">gpa.fuentesc@gmail.com</a>
+                    </div>
+                    <div class="row"><b>GitHub</b> <a href="https://github.com/GafuDev" target="_blank"
+                            rel="noopener">github.com/GafuDev</a></div>
+                    <div class="row"><b>LinkedIn</b> <a
+                            href="https://www.linkedin.com/in/gabriel-fuentes-castillo-90a21725b/" target="_blank"
+                            rel="noopener">/in/gabriel-fuentes-castillo-90a21725b</a></div>
+                    <div class="row"><b>Disponibilidad</b> Chile (UTC-4)</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="wrap">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <span>© <span id="y"></span> Gabriel Fuentes — Seguridad por diseño • Accesible • Rápido</span>
+            <a class="badge" href="#"
+                onclick="alert('/.well-known/security.txt recomendado');return false;">security.txt</a>
+        </div>
+    </footer>
+
+    <script>
+        // Modo técnico
+        const toggleTech = document.getElementById('toggleTech');
+        toggleTech.addEventListener('change', e => {
+            document.body.classList.toggle('tech', e.target.checked);
+            localStorage.setItem('gf-tech', e.target.checked ? '1' : '0');
+        });
+        if (localStorage.getItem('gf-tech') === '1') { toggleTech.checked = true; document.body.classList.add('tech'); }
+        document.getElementById('y').textContent = new Date().getFullYear();
+
+        // Matrix rain minimal
+        (function () {
+            const c = document.getElementById('matrix'), ctx = c.getContext('2d');
+            const resize = () => { c.width = innerWidth; c.height = innerHeight; };
+            addEventListener('resize', resize); resize();
+            const letters = "01ABCDEFGHIJKLMNPQRSTUVWXYZ#$%&@";
+            const fontSize = 14;
+            let columns = Math.floor(c.width / fontSize);
+            let drops = Array(columns).fill(1);
+            function draw() {
+                ctx.fillStyle = 'rgba(5,6,10,.15)';
+                ctx.fillRect(0, 0, c.width, c.height);
+                ctx.fillStyle = '#00f5ff';
+                ctx.font = fontSize + 'px monospace';
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > c.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // Carga de repos desde GitHub
+        async function loadRepos() {
+            const container = document.getElementById('repos');
+            try {
+                const res = await fetch('https://api.github.com/users/GafuDev/repos?sort=updated&per_page=6');
+                const data = await res.json();
+                if (!Array.isArray(data)) throw new Error('Respuesta inesperada');
+                if (data.length === 0) throw new Error('Sin repos públicos para listar');
+                container.innerHTML = '';
+                data.forEach(r => {
+                    const lang = r.language || '—';
+                    const card = document.createElement('article');
+                    card.className = 'panel card';
+                    card.setAttribute('role', 'listitem');
+                    card.innerHTML = `
+          <h3><a href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a></h3>
+          <p>${(r.description || 'Repositorio sin descripción').slice(0, 160)}</p>
+          <div class="meta">
+            <span>★ ${r.stargazers_count}</span>
+            <span>${lang}</span>
+            <span>Updated: ${new Date(r.updated_at).toLocaleDateString()}</span>
+          </div>
+        `;
+                    container.appendChild(card);
+                });
+            } catch (e) {
+                container.innerHTML = `
+        <article class="panel card">
+          <h3><a href="https://github.com/GafuDev/CursoHackingEticoEnAplicativosWeb2025" target="_blank" rel="noopener">CursoHackingEticoEnAplicativosWeb2025</a></h3>
+          <p>Laboratorio del curso de Hacking Ético en Aplicativos Web (fork). Ver ejercicios y prácticas.</p>
+          <div class="meta"><span>GitHub</span><span>Repo destacado</span></div>
+        </article>
+      `;
+            }
+        }
+        loadRepos();
+    </script>
+</body>
+
+</html>
