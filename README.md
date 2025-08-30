@@ -58,4 +58,4 @@ Incluye “Modo técnico”, listado automático de repos de GitHub, un ejemplo 
 - (Opcional) **Git** para versionar y publicar.
 - (Opcional) Python 3 o Node.js para servir localmente.
 
----
+----
