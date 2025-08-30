@@ -1,6 +1,6 @@
 # 🔐⚡ Portafolio de Ciberseguridad — Gabriel Fuentes Castillo
 
-**Live:** https://GafuDev.github.io  
+**Live:** https://gafudev.github.io/Ejercicio_Portafolio
 **GitHub:** https://github.com/GafuDev  
 **LinkedIn:** https://www.linkedin.com/in/gabriel-fuentes-castillo-90a21725b/
 
