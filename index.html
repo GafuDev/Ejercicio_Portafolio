@@ -319,6 +319,22 @@
         :focus-visible {
             outline: 2px solid var(--acc)
         }
+
+        .avatar-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0 10px
+        }
+
+        .avatar-large {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, .12);
+            box-shadow: 0 0 0 4px rgba(0, 245, 255, .12), 0 0 30px rgba(0, 245, 255, .18);
+        }
     </style>
     <script type="application/ld+json">
   {
@@ -365,6 +381,11 @@
         <section class="hero">
             <div class="grid-hero">
                 <div>
+                    <!-- FOTO DE PERFIL -->
+                    <figure class="avatar-box" aria-label="Foto de perfil">
+                        <img src="assets/img/yo.jpg" alt="Gabriel Fuentes Castillo — Ciberseguridad y DevSecOps"
+                            class="avatar-large" width="140" height="140" loading="eager" decoding="async">
+                    </figure>
                     <span class="badge">Disponibilidad: proyectos de auditoría web & hardening</span>
                     <h1>Gabriel Fuentes Castillo</h1>
                     <p class="lead">
@@ -467,6 +488,20 @@
                     <div class="meta"><span>Python</span><span>GitHub</span></div>
                 </div>
             </noscript>
+        </section>
+
+        <!--EJERCICIOS -->
+        <section id="ejercicios" class="section">
+            <div class="title">
+                <h2>Ejercicios del curso</h2>
+                <span class="mode-note">Se cargan desde <code>exercises.json</code>.</span>
+            </div>
+            <div id="works" class="cards" role="list">
+                <article class="panel card">
+                    <h3>Cargando ejercicios…</h3>
+                    <p>Si esto tarda, revisa que <code>exercises.json</code> exista en la raíz del repo.</p>
+                </article>
+            </div>
         </section>
 
         <!-- HALLAZGO DESTACADO -->
@@ -594,7 +629,48 @@
       `;
             }
         }
+
+        async function loadExercises() {
+            const box = document.getElementById('works');
+            if (!box) return;
+            try {
+                const res = await fetch('exercises.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('No se pudo leer exercises.json');
+                const items = await res.json();
+                if (!Array.isArray(items) || items.length === 0) {
+                    box.innerHTML = `<article class="panel card"><h3>Sin ejercicios aún</h3><p>Agrega objetos al archivo <code>exercises.json</code>.</p></article>`;
+                    return;
+                }
+                box.innerHTML = '';
+                items.forEach(it => {
+                    const tools = (it.tools || []).map(t => `<span class="chip">${t}</span>`).join(' ');
+                    const imgs = (it.evidencias || []).slice(0, 2).map(src => `<img src="${src}" alt="Evidencia ${it.id}" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.08)">`).join('');
+                    const links = `
+          ${it.reporte ? `<a class="btn" href="${it.reporte}" target="_blank" rel="noopener">Ver reporte (PDF)</a>` : ''}
+          ${it.repo ? `<a class="btn secondary" href="${it.repo}" target="_blank" rel="noopener">Ver repo</a>` : ''}
+        `;
+                    const card = document.createElement('article');
+                    card.className = 'panel card';
+                    card.setAttribute('role', 'listitem');
+                    card.innerHTML = `
+          <h3>${it.titulo}</h3>
+          <p>${it.resumen || ''}</p>
+          <div class="meta"><span>${it.categoria || ''}</span><span>${it.fecha ? new Date(it.fecha).toLocaleDateString() : ''}</span></div>
+          <div class="chips" style="margin:8px 0">${tools}</div>
+          <div style="display:grid;gap:10px;margin:10px 0">${imgs}</div>
+          <div class="cta">${links}</div>
+        `;
+                    box.appendChild(card);
+                });
+            } catch (e) {
+                box.innerHTML = `<article class="panel card"><h3>No se pudieron cargar los ejercicios</h3><p>${e.message}</p></article>`;
+            }
+        }
+
+
         loadRepos();
+
+        loadExercises();
     </script>
 </body>
 

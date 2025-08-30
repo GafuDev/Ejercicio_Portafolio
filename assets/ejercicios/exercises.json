@@ -1,0 +1,14 @@
+[
+  {
+    "id": "e01-acceso-endpoint",
+    "titulo": "E01 — Acceso indebido a endpoint",
+    "fecha": "2025-08-30",
+    "categoria": "Autenticación / Control de Acceso",
+    "resumen": "Evidencia de acceso al endpoint sin controles adecuados y propuesta de remediación.",
+    "tools": ["Burp Suite","Nmap"],
+    "repo": "https://github.com/GafuDev/CursoHackingEticoEnAplicativosWeb2025",
+    "reporte": "ejercicios/analisis-informe-tecnico.pdf",
+    "evidencias": ["assets/ejercicios/1.png"]
+  }
+]
+
